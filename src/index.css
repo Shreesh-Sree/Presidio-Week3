@@ -1,0 +1,163 @@
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap');
+@import url('https://departuremono.com/mono.css');
+
+@import "tailwindcss";
+
+/* Configure Tailwind v4 to trigger dark: variants on .dark class selectors */
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Satoshi', system-ui, sans-serif;
+  --font-display: 'Satoshi', system-ui, sans-serif;
+  --font-mono: 'Departure Mono', monospace;
+
+  /* Custom Color Palette Overrides */
+  --color-brand-50: #e6fbf1;
+  --color-brand-100: #ccf7e3;
+  --color-brand-200: #99efc7;
+  --color-brand-300: #66e7ab;
+  --color-brand-400: #33df8e;
+  --color-brand-500: #05C770; /* Hacker Green */
+  --color-brand-600: #04a55d;
+  --color-brand-700: #037c46;
+  --color-brand-800: #02532f;
+  --color-brand-900: #012a18;
+
+  --color-sky-500: #73D3FB;
+  --color-celery-500: #DBFFC2;
+  --color-terminal-500: #3355FF;
+  --color-terrain-500: #003333;
+
+  /* Re-map standard indigo and emerald for design consistency */
+  --color-indigo-400: #5577ff;
+  --color-indigo-500: #3355FF; /* Terminal Blue */
+  --color-indigo-600: #2244DD;
+  --color-emerald-400: #33df8e;
+  --color-emerald-500: #05C770; /* Hacker Green */
+  --color-emerald-600: #04a55d;
+
+  /* Core theme background overrides (forces dark mode pages to #141419) */
+  --color-zinc-950: #141419;
+  --color-slate-950: #141419;
+  --color-zinc-900: #1a1a22;
+  --color-slate-900: #1a1a22;
+  --color-zinc-800: #25252f;
+  --color-slate-800: #25252f;
+  --color-zinc-700: #353542;
+  --color-slate-700: #353542;
+}
+
+:root {
+  font-family: var(--font-sans);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #FFFFFF;
+  background-image: radial-gradient(at 0% 0%, rgba(5, 199, 112, 0.05) 0px, transparent 50%),
+                    radial-gradient(at 50% 0%, rgba(115, 211, 251, 0.04) 0px, transparent 50%),
+                    radial-gradient(at 100% 0%, rgba(51, 85, 255, 0.04) 0px, transparent 50%);
+  color: #141419;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-x: hidden;
+}
+
+body.dark {
+  background-color: #141419;
+  background-image: radial-gradient(at 0% 0%, rgba(5, 199, 112, 0.1) 0px, transparent 50%),
+                    radial-gradient(at 50% 0%, rgba(0, 51, 51, 0.25) 0px, transparent 50%),
+                    radial-gradient(at 100% 0%, rgba(51, 85, 255, 0.08) 0px, transparent 50%);
+  color: #FFFFFF;
+}
+
+/* Glassmorphism panel styling */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 51, 51, 0.08); /* Soft terrain border */
+  box-shadow: 0 8px 32px 0 rgba(0, 51, 51, 0.03),
+              inset 0 1px 1px 0 rgba(255, 255, 255, 0.6);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark .glass-panel {
+  background: rgba(20, 20, 25, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(5, 199, 112, 0.15); /* Soft Hacker Green border */
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5),
+              inset 0 1px 0 0 rgba(255, 255, 255, 0.02);
+}
+
+/* Animation triggers for render tracking */
+@keyframes flash-green {
+  0% {
+    background-color: rgba(34, 197, 94, 0.25);
+    box-shadow: 0 0 15px 2px rgba(34, 197, 94, 0.4);
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+@keyframes flash-red {
+  0% {
+    background-color: rgba(239, 68, 68, 0.25);
+    box-shadow: 0 0 15px 2px rgba(239, 68, 68, 0.4);
+  }
+  100% {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+.flash-render-optimized {
+  animation: flash-green 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.flash-render-unoptimized {
+  animation: flash-red 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom global scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(20, 20, 25, 0.2);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(5, 199, 112, 0.35); /* Hacker Green thumb */
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(5, 199, 112, 0.6); /* Brighter green on hover */
+}
+
+body.dark ::-webkit-scrollbar-track {
+  background: rgba(20, 20, 25, 0.5);
+}
+
+body.dark ::-webkit-scrollbar-thumb {
+  background: rgba(5, 199, 112, 0.3);
+}
+
+body.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(5, 199, 112, 0.55);
+}
+
+/* Firefox compatibility */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(5, 199, 112, 0.3) rgba(20, 20, 25, 0.25);
+}
